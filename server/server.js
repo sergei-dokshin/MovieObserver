@@ -37,7 +37,7 @@ async function start() {
   try {
     // Подключаемся к базе данных
     await mongoose
-      .connect(config.get('mongoUriAtlas'))
+      .connect(config.get('mongoUriDocker'))
       .then(() => console.log('Connected to MongoDB'));
 
     // Запуск сервера
