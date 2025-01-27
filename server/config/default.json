@@ -1,7 +1,7 @@
 {
   "port": 8080,
-  "mongoUri": "mongodb://app_admin:appadmin123@localhost:27017/server_and_database",
-  "mongoUriAtlas": "mongodb+srv://admin:admin123@cluster0.wqbug.mongodb.net/MovieObserver?retryWrites=true&w=majority&appName=Cluster0",
-  "accessPrivateKey": "theSECRETkeyFORjwtACCESStoken_JBgiYgliygIGFIYG7yhugvbhVGGCku7776663BJBJB",
-  "refreshPrivateKey": "theSECRETkeyFORjwtREFRESHtoken_fjuf7677KJBHFGy8fhbsdfkjasfHULIGIU87GYGV"
+  "mongoUri": "===============================",
+  "mongoUriAtlas": "=========================================",
+  "accessPrivateKey": "======================================",
+  "refreshPrivateKey": "================================="
 }
