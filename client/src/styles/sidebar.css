@@ -1,0 +1,31 @@
+.sideBar-container {
+    /* position: absolute; */
+    grid-area: sidebar;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 245px;
+    min-height: 500px;
+    padding: 20px 20px;
+    border-right: 1px solid lightskyblue;
+    border-bottom: 1px solid lightskyblue;
+    z-index: 4;
+}
+
+.sideBar-form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.sideBar-form-container button {
+    width: 60%;
+}
+
+.sidebar-input {
+    width: 180px;
+    border: 1px solid lightskyblue;
+    border-radius: 7px;
+    padding: 5px 20px;
+    margin-bottom: 15px;
+}
+

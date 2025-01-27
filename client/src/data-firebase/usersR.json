@@ -1,0 +1,312 @@
+[{
+  "_id": {
+    "$oid": "6731b6581f5adeb2bc2a45f5"
+  },
+  "name": "Jim Carrey",
+  "birthDate": 1962,
+  "hobbies": [
+    {
+      "$oid": "673af1b980316de06f2267e1"
+    },
+    {
+      "$oid": "673af1b980316de06f2267f6"
+    }
+  ],
+  "email": "jim.carry@example.com",
+  "password": "JCarrey!1962",
+  "wikiPage": "https://en.wikipedia.org/wiki/Jim_Carrey",
+  "updatedAt": {
+    "$date": "2024-12-15T08:54:01.071Z"
+  },
+  "avatar": "uploads\\1733941285402.jpg",
+  "occupation": "Актёр"
+},
+{
+  "_id": {
+    "$oid": "6731b6581f5adeb2bc2a45f6"
+  },
+  "name": "Emma Stone",
+  "birthDate": 1988,
+  "hobbies": [
+    {
+      "$oid": "673af1b980316de06f2267e2"
+    },
+    {
+      "$oid": "673af1b980316de06f2267e3"
+    },
+    {
+      "$oid": "673af1b980316de06f2267e5"
+    }
+  ],
+  "email": "emma.stone@example.com",
+  "password": "EStone!1988",
+  "wikiPage": "https://en.wikipedia.org/wiki/Emma_Stone",
+  "updatedAt": {
+    "$date": "2024-12-09T13:16:45.297Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6731b6581f5adeb2bc2a45f7"
+  },
+  "name": "Robert Downey Jr.",
+  "birthDate": 1965,
+  "hobbies": [
+    {
+      "$oid": "673af1b980316de06f2267e4"
+    },
+    {
+      "$oid": "673af1b980316de06f2267e5"
+    }
+  ],
+  "email": "DowneyJr@example.com",
+  "password": "RDowney!1965",
+  "wikiPage": "",
+  "occupation": "Актёр",
+  "updatedAt": {
+    "$date": "2024-12-17T10:23:33.542Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6731b6581f5adeb2bc2a45f8"
+  },
+  "name": "Scarlett Johansson333",
+  "birthDate": 1984,
+  "hobbies": [
+    {
+      "$oid": "673af1b980316de06f2267e6"
+    },
+    {
+      "$oid": "673af1b980316de06f2267e7"
+    }
+  ],
+  "email": "scarlett.johansson@example.com",
+  "password": "SJohansson!1984",
+  "wikiPage": "https://en.wikipedia.org/wiki/Scarlett_Johansson",
+  "avatar": "uploads\\1734096879665.jpg",
+  "occupation": "Актриса",
+  "updatedAt": {
+    "$date": "2024-12-13T14:14:46.275Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6731b6581f5adeb2bc2a45f9"
+  },
+  "name": "Chris Hemsworth",
+  "birthDate": 1983,
+  "hobbies": [
+    "673af1b980316de06f2267e8",
+    "673af1b980316de06f2267e9"
+  ],
+  "email": "chris.hemsworth@example.com",
+  "password": "CHemsworth!1983",
+  "wikiPage": ""
+},
+{
+  "_id": {
+    "$oid": "6731b6581f5adeb2bc2a45fa"
+  },
+  "name": "Zendaya",
+  "birthDate": 1996,
+  "hobbies": [
+    {
+      "$oid": "673af1b980316de06f2267ea"
+    },
+    {
+      "$oid": "673af1b980316de06f2267f6"
+    },
+    {
+      "$oid": "673af1b980316de06f2267ef"
+    }
+  ],
+  "email": "zendaya@example.com",
+  "password": "Zendaya!1996",
+  "wikiPage": "https://en.wikipedia.org/wiki/Zendaya",
+  "avatar": "uploads\\1733993964242.jpg",
+  "updatedAt": {
+    "$date": "2024-12-12T09:40:43.610Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6731b6581f5adeb2bc2a45fb"
+  },
+  "name": "Tom Holland",
+  "birthDate": 1996,
+  "hobbies": [
+    {
+      "$oid": "673af1b980316de06f2267ed"
+    },
+    {
+      "$oid": "673af1b980316de06f2267ef"
+    }
+  ],
+  "email": "tom.holland@example.com",
+  "password": "THolland!1996",
+  "wikiPage": "https://en.wikipedia.org/wiki/Tom_Holland",
+  "avatar": "uploads\\1734007247321.jpg",
+  "updatedAt": {
+    "$date": "2024-12-12T12:59:42.877Z"
+  },
+  "occupation": "Актёр"
+},
+{
+  "_id": {
+    "$oid": "6731b6581f5adeb2bc2a45fc"
+  },
+  "name": "Natalie Portman",
+  "birthDate": 1981,
+  "hobbies": [
+    "673af1b980316de06f2267ee",
+    "673af1b980316de06f2267ef"
+  ],
+  "email": "natalie.portman@example.com",
+  "password": "NPortman!1981",
+  "wikiPage": ""
+},
+{
+  "_id": {
+    "$oid": "6731b6581f5adeb2bc2a45fd"
+  },
+  "name": "Leonardo DiCaprio",
+  "birthDate": 1974,
+  "hobbies": [
+    "673af1b980316de06f2267f0",
+    "673af1b980316de06f2267f1"
+  ],
+  "email": "leonardo.dicaprio@example.com",
+  "password": "LDiCaprio!1974",
+  "wikiPage": ""
+},
+{
+  "_id": {
+    "$oid": "6731b6581f5adeb2bc2a45fe"
+  },
+  "name": "Jennifer Lawrence",
+  "birthDate": 1990,
+  "hobbies": [
+    "673af1b980316de06f2267f2",
+    "673af1b980316de06f2267f3"
+  ],
+  "email": "jennifer.lawrence@example.com",
+  "password": "JLawrence!1990",
+  "wikiPage": ""
+},
+{
+  "_id": {
+    "$oid": "6756cd8316397915da387ea3"
+  },
+  "name": "Боб Келсо",
+  "birthDate": 1967,
+  "hobbies": [
+    {
+      "$oid": "673af1b980316de06f2267e1"
+    }
+  ],
+  "email": "bob.celso1967mail.com",
+  "password": "1234567",
+  "wikiPage": "https://en.wikipedia.org/wiki/Bob_Kelso",
+  "createdAt": {
+    "$date": "2024-12-09T10:59:15.809Z"
+  },
+  "updatedAt": {
+    "$date": "2024-12-09T10:59:15.809Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6756f177f2ea157ace200e5b"
+  },
+  "name": "Chuck Norris",
+  "birthDate": 1940,
+  "hobbies": [
+    {
+      "$oid": "673af1b980316de06f2267e4"
+    },
+    {
+      "$oid": "673af1b980316de06f2267e6"
+    },
+    {
+      "$oid": "673af1b980316de06f2267f5"
+    }
+  ],
+  "email": "CNorris1940@chuckmail.com",
+  "password": "ChuckNorris!1940",
+  "wikiPage": "https://en.wikipedia.org/wiki/Chuck_Norris",
+  "createdAt": {
+    "$date": "2024-12-09T13:32:39.890Z"
+  },
+  "updatedAt": {
+    "$date": "2024-12-09T13:32:39.890Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6756f2cdf2ea157ace200e6c"
+  },
+  "name": "Daniel Radcliffe",
+  "birthDate": 1989,
+  "hobbies": [
+    {
+      "$oid": "673af1b980316de06f2267e1"
+    },
+    {
+      "$oid": "673af1b980316de06f2267e7"
+    }
+  ],
+  "email": "Radcliffe1989@mail.com",
+  "password": "DRadcliffe!1989",
+  "wikiPage": "https://en.wikipedia.org/wiki/Daniel_Radcliffe",
+  "createdAt": {
+    "$date": "2024-12-09T13:38:21.812Z"
+  },
+  "updatedAt": {
+    "$date": "2024-12-09T13:38:21.812Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67615ef7cde8dad0785c6094"
+  },
+  "name": "Quentin Tarantino",
+  "birthDate": 1963,
+  "hobbies": [],
+  "email": "QTarantino@tmail.com",
+  "password": "QTarantino!1963",
+  "wikiPage": "",
+  "avatar": "",
+  "createdAt": {
+    "$date": "2024-12-17T11:22:31.680Z"
+  },
+  "updatedAt": {
+    "$date": "2024-12-17T11:22:31.680Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "676162e6cde8dad0785c609a"
+  },
+  "name": "James Cameron",
+  "occupation": "Режиссер",
+  "birthDate": 1954,
+  "hobbies": [
+    {
+      "$oid": "673af1b980316de06f2267e1"
+    },
+    {
+      "$oid": "673af1b980316de06f2267fa"
+    }
+  ],
+  "email": "JCameron@tmail.com",
+  "password": "JCameron!1954",
+  "wikiPage": "https://en.wikipedia.org/wiki/James_Cameron",
+  "avatar": "uploads\\1734435558153.jpg",
+  "createdAt": {
+    "$date": "2024-12-17T11:39:18.158Z"
+  },
+  "updatedAt": {
+    "$date": "2024-12-17T11:39:18.158Z"
+  }
+}]

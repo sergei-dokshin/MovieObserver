@@ -1,0 +1,7 @@
+[
+    { "name": "active", "color": "#ff8080" },
+    { "name": "party", "color": "plum" },
+    { "name": "intellectual", "color": "skyblue" },
+    { "name": "artisan", "color": "#da9958" },
+    { "name": "calm", "color": "lightgreen" }
+]
