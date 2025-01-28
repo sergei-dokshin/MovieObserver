@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { LoginData } from '../../types/navBar.types';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/storeHooks';
@@ -8,6 +8,7 @@ import {
 	login,
 	removeUsersError
 } from '../../store/users';
+import { validator } from '../../utils/validator';
 
 const LoginPage = () => {
 	const [loginData, setloginData] = useState<LoginData>({
@@ -21,6 +22,30 @@ const LoginPage = () => {
 	const from = location.state?.from || '/';
 	const authUser = useAppSelector(getAuthUser());
 	const error = useAppSelector(getAuthError());
+	const [inputErrors, setInputErrors] = useState<Record<string, string>>({});
+	const validatorConfig = {
+		email: {
+			isRequired: {
+				message: 'Необходимо указать email'
+			},
+			isEmail: {
+				message: 'Неверный email'
+			}
+		},
+		password: {
+			isRequired: {
+				message: 'Необходимо указать пароль'
+			},
+			isCorrectPassword: {
+				message: 'Некорректный пароль'
+			}
+		}
+	};
+	const [showPassword, setShowPassword] = useState(false);
+
+	function toggleShowPassword() {
+		setShowPassword((prev) => !prev);
+	}
 
 	function handleChange({ target }: React.ChangeEvent<HTMLInputElement>) {
 		if (error) {
@@ -33,19 +58,38 @@ const LoginPage = () => {
 		}));
 	}
 
-	const handleSubmit = async (e: React.FormEvent) => {
+	async function handleSubmit(e: React.FormEvent) {
 		e.preventDefault();
-		setIsFetching(true);
-		// необходимо добавить await, иначе navigate() срабатывает до смены статуса в Redux
-		await dispatch(login(loginData));
-		setIsFetching(false);
+		const isValid = validate();
+		if (!isValid) return;
 
-		navigate(from === '/login' ? '/users' : from, { replace: true });
-	};
+		console.log('submited');
+
+		// setIsFetching(true);
+		// // необходимо добавить await, иначе navigate() срабатывает до смены статуса в Redux
+		// await dispatch(login(loginData));
+		// setIsFetching(false);
+
+		// navigate(from === '/login' ? '/users' : from, { replace: true });
+	}
+
+	function validate() {
+		const errors: Record<string, string> = validator(
+			loginData,
+			validatorConfig
+		);
+
+		setInputErrors(errors);
+		return Object.keys(errors).length === 0;
+	}
 
 	function goToRegisterPage() {
 		navigate('/register');
 	}
+
+	useEffect(() => {
+		validate();
+	}, [loginData]);
 
 	return (
 		<div className="page-content-container">
@@ -61,20 +105,35 @@ const LoginPage = () => {
 						onChange={handleChange}
 						placeholder="Email"
 						required
-						className={`login-form-input ${error && 'error-input-border'}`}
+						className={`login-form-input ${inputErrors.email && 'error-input-border'}`}
 					/>
-					<input
-						type="password"
-						name="password"
-						value={loginData.password}
-						onChange={handleChange}
-						placeholder="Пароль"
-						required
-						className={`login-form-input ${error && 'error-input-border'}`}
-					/>
+					{inputErrors.email && (
+						<p className="error-message-p">{inputErrors.email}</p>
+					)}
+					<div className="password-input-container">
+						<input
+							type={showPassword ? 'text' : 'password'}
+							name="password"
+							value={loginData.password}
+							onChange={handleChange}
+							placeholder="Пароль"
+							required
+							className={`input-password login-form-input ${inputErrors.password && 'error-input-border'}`}
+						/>
+						<i
+							className={`password-eye bi ${showPassword ? 'bi-eye-slash' : 'bi-eye'}`}
+							onClick={toggleShowPassword}
+							role="button"
+							aria-label="Показать или скрыть пароль"
+						></i>
+					</div>
+					{inputErrors.password && (
+						<p className="error-message-p">{inputErrors.password}</p>
+					)}
 					<button
 						onClick={handleSubmit}
 						className={`login-button ${isFetching && 'disabled-button'}`}
+						disabled={!(Object.keys(inputErrors).length === 0)}
 					>
 						<i className="bi bi-door-open"></i>
 						Вход

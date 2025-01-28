@@ -428,10 +428,35 @@ body {
 
 .error-message-p {
 	color: rgb(163, 15, 15);
+	font-size: 0.9rem;
+	font-style: italic;
 }
 
 .error-input-border {
 	border: 1px solid rgb(163, 15, 15);
+}
+
+.password-input-container {
+	position: relative;
+	display: flex;
+}
+
+.input-password {
+	width: 100%;
+	padding-right: 2rem; /* Оставляем место для иконки */
+}
+
+.password-eye {
+	position: absolute;
+	right: 0.5rem;
+	cursor: pointer;
+	color: #888;
+	font-size: 1.25rem; /* Задаём размер иконки */
+	user-select: none; /* Отключаем выделение */
+}
+
+.password-eye:hover {
+	color: #555;
 }
 
 .users-list-page-container {

@@ -37,7 +37,7 @@ async function start() {
   try {
     // Подключаемся к базе данных
     await mongoose
-      .connect(config.get('mongoUriDocker'))
+      .connect(config.get('mongoUri'))
       .then(() => console.log('Connected to MongoDB'));
 
     // Запуск сервера

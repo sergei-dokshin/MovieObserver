@@ -19,6 +19,33 @@ const UserEditPage = () => {
 		wikiPage: '',
 		avatar: null
 	});
+	const validatorConfig = {
+		email: {
+			isRequired: {
+				message: 'Необходимо указать email'
+			},
+			isEmail: {
+				message: 'Неверный email'
+			}
+		},
+		name: {
+			isRequired: {
+				message: 'Необходимо указать имя'
+			},
+			isCorrectName: {
+				message: 'Имя должно содержать от 4 до 35 символов'
+			}
+		},
+		birthDate: {
+			isRequired: {
+				message: 'Необходимо указать год рождения'
+			},
+			isCorrectBirthDate: {
+				message: 'Неверный email'
+			}
+		}
+	};
+	const [inputErrors, setInputErrors] = useState<Record<string, string>>({});
 	const { userId } = useParams();
 	const authUser = useAppSelector(getAuthUser());
 	const hobbies = useAppSelector(getHobbies());
@@ -54,9 +81,19 @@ const UserEditPage = () => {
 				<h4>Загрузка...</h4>
 			) : (
 				<>
-					<UserForm inputData={inputData} setInputData={setInputData} />
+					<UserForm
+						inputData={inputData}
+						setInputData={setInputData}
+						inputErrors={inputErrors}
+						setInputErrors={setInputErrors}
+						validatorConfig={validatorConfig}
+					/>
 					<div className="edit-page-container">
-						<button onClick={handleUpdateUser} className="edit-page-button">
+						<button
+							onClick={handleUpdateUser}
+							className="edit-page-button"
+							disabled={!(Object.keys(inputErrors).length === 0)}
+						>
 							Сохранить
 						</button>
 						<button
