@@ -1,44 +1,19 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import Comment from './comment';
 import { CommentData, CommentsProps } from '../../types/comment.types';
 import { useAppDispatch, useAppSelector } from '../../store/storeHooks';
-import { getAuthUser } from '../../store/users';
-import {
-	createNewComment,
-	deleteComment,
-	loadCommentsForUser
-} from '../../store/comments';
+import { deleteComment, loadCommentsForUser } from '../../store/comments';
+import NewCommentArea from './newCommentArea';
 
 const Comments: React.FC<CommentsProps> = ({ currentPageUserId }) => {
 	const dispatch = useAppDispatch();
+	const commentsPrevState = useRef<CommentData[]>();
 	const { entities: comments, isLoading } = useAppSelector(
 		(state) => state.comments
 	);
 
-	const authUser = useAppSelector(getAuthUser());
-	const [newComment, setNewComment] = useState('');
-	const commentsPrevState = useRef<CommentData[]>();
-
-	function handleChange({ target }: React.ChangeEvent<HTMLTextAreaElement>) {
-		if (target) {
-			setNewComment(() => target.value);
-		}
-	}
-
 	function getCommentsForUser(userId: string) {
 		dispatch(loadCommentsForUser(userId));
-	}
-
-	async function createComment(text: string) {
-		if (authUser?._id) {
-			const newComment = {
-				text: text,
-				userId: currentPageUserId,
-				authorId: authUser._id
-			};
-			await dispatch(createNewComment(newComment));
-			setNewComment('');
-		}
 	}
 
 	function removeComment(commentId: string) {
@@ -52,24 +27,9 @@ const Comments: React.FC<CommentsProps> = ({ currentPageUserId }) => {
 
 	return (
 		<div className="comment-main-container">
-			<div>
-				<p style={{ margin: '5px' }}>Создать новый комментарий: </p>
-				<div className="new-comment-container">
-					<textarea
-						className="comment-textarea"
-						name="text"
-						value={newComment}
-						onChange={handleChange}
-						placeholder="Напишите ваш комментарий..."
-					></textarea>
-					<button
-						className="publish-button"
-						onClick={() => createComment(newComment)}
-					>
-						Опубликовать
-					</button>
-				</div>
-			</div>
+			<NewCommentArea
+				currentPageUserId={currentPageUserId}
+			/>
 			<div>
 				<h3 style={{ margin: '5px' }}>Комментарии: </h3>
 				{isLoading ? (

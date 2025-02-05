@@ -5,6 +5,7 @@ import UserForm from '../ui/userForm';
 import { useState } from 'react';
 import { UserWithHobbies } from '../../types/user.types';
 import { toast } from 'react-toastify';
+import { validator } from '../../utils/validator';
 
 const RegisterUserPage = () => {
 	const dispatch = useAppDispatch();
@@ -50,13 +51,24 @@ const RegisterUserPage = () => {
 				message: 'Необходимо указать год рождения'
 			},
 			isCorrectBirthDate: {
-				message: 'Неверный email'
+				message: 'Укажите корректный год рождения'
 			}
 		}
 	};
 
+	function validate() {
+		const errors: Record<string, string> = validator(
+			inputData,
+			validatorConfig
+		);
+
+		setInputErrors(errors);
+		return !(Object.keys(inputErrors).length === 0);
+	}
+
 	async function registerUser() {
-		if (inputData) {
+		validate();
+		if (Object.keys(inputErrors).length === 0) {
 			const UserWithoutHobbies = {
 				...inputData,
 				hobbies: inputData.hobbies.map((hobbie) => hobbie._id)
@@ -64,7 +76,8 @@ const RegisterUserPage = () => {
 
 			await dispatch(signUp(UserWithoutHobbies));
 			navigate(`/users`);
-			toast('Вы успешно зарегистрировались! \nДобро пожаловать!');
+			toast('Вы успешно зарегистрировались!👏');
+			toast('Добро пожаловать!🥳');
 		}
 	}
 
@@ -76,11 +89,14 @@ const RegisterUserPage = () => {
 				setInputData={setInputData}
 				inputErrors={inputErrors}
 				setInputErrors={setInputErrors}
-				validatorConfig={validatorConfig}
+				validate={validate}
 			/>
 			<div className="edit-page-container">
-				<button onClick={registerUser} className="edit-page-button"
-				disabled={!(Object.keys(inputErrors).length === 0)}>
+				<button
+					onClick={registerUser}
+					className="edit-page-button"
+					disabled={!(Object.keys(inputErrors).length === 0)}
+				>
 					Зарегистрироваться
 				</button>
 				<button onClick={() => navigate('/login')} className="edit-page-button">

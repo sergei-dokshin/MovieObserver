@@ -14,7 +14,7 @@ const UsersTable = ({
 }: UserTableProps) => {
 	const authUser = useAppSelector(getAuthUser());
 	return (
-		<table className="table table-striped table-dark table-bordered">
+		<table className="table table-striped table-dark table-bordered users-table">
 			<thead>
 				<TableHeadRow
 					handleSort={handleSort}

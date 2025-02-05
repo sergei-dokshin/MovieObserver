@@ -28,9 +28,15 @@ const updateUser = async (payload: User) => {
 	return data;
 };
 
+const checkUserEmail = async (email: string) => {
+	const { data } = await http.get(`/users/email?email=${email}`);
+	return data;
+};
+
 export const userService = {
 	getUser,
 	getAuthUser,
 	getAllUsers,
-	updateUser
+	updateUser,
+	checkUserEmail
 };

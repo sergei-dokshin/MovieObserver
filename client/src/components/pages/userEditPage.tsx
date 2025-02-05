@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { getHobbiesByIds } from '../../utils/getHobbiesByIds';
 import { UserWithHobbies } from '../../types/user.types';
 import { toast } from 'react-toastify';
+import { validator } from '../../utils/validator';
 
 const UserEditPage = () => {
 	const [inputData, setInputData] = useState<UserWithHobbies>({
@@ -41,7 +42,7 @@ const UserEditPage = () => {
 				message: 'Необходимо указать год рождения'
 			},
 			isCorrectBirthDate: {
-				message: 'Неверный email'
+				message: 'Укажите корректный год рождения'
 			}
 		}
 	};
@@ -52,17 +53,28 @@ const UserEditPage = () => {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 
+	function validate() {
+		const errors: Record<string, string> = validator(
+			inputData,
+			validatorConfig
+		);
+
+		setInputErrors(errors);
+		return !(Object.keys(inputErrors).length === 0);
+	}
+
 	async function handleUpdateUser() {
-		if (inputData) {
+		const errors = validate();
+		if (!errors) {
 			await dispatch(
 				updateUser({
 					...inputData,
 					hobbies: inputData.hobbies.map((hobby) => hobby._id)
 				})
 			);
+			navigate(`/users/${userId}`);
+			toast('Данные успешно обновлены!👍');
 		}
-		navigate(`/users/${userId}`);
-		toast('Данные успешно обновлены!');
 	}
 
 	useEffect(() => {
@@ -86,7 +98,8 @@ const UserEditPage = () => {
 						setInputData={setInputData}
 						inputErrors={inputErrors}
 						setInputErrors={setInputErrors}
-						validatorConfig={validatorConfig}
+						validate={validate}
+						authUser={authUser}
 					/>
 					<div className="edit-page-container">
 						<button

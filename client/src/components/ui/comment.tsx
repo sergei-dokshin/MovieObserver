@@ -2,12 +2,29 @@ import { formatDate } from '../../utils/dateFormatter';
 import { CommentProps } from '../../types/comment.types';
 import { useAppSelector } from '../../store/storeHooks';
 import { getAuthUser } from '../../store/users';
+import { useEffect, useState } from 'react';
+import {
+	extractYouTubeID,
+	getVideoData,
+	splitText
+} from '../../utils/videoPreviewService';
 
 const Comment: React.FC<CommentProps> = ({ data, onDelete, _id }) => {
 	const authUser = useAppSelector(getAuthUser());
 	const author = data.authorId;
 	const isAllowedToDelete =
 		authUser?._id === author._id || authUser?._id === data.userId;
+	const [videoData, setVideoData] = useState({
+		videoURL: '',
+		videoDescription: ''
+	});
+	const videoID = extractYouTubeID(data.text); // извлекаем из сообщения ID видео из ссылки
+	// создаем массив, если в тексте присутствует ссылка на видео
+	const splittedText = splitText(data.text, videoData.videoURL);
+
+	useEffect(() => {
+		getVideoData(data.text, setVideoData);
+	}, [data.text]);
 
 	return (
 		<div className="comment-container">
@@ -33,7 +50,25 @@ const Comment: React.FC<CommentProps> = ({ data, onDelete, _id }) => {
 						></i>
 					)}
 				</div>
-				<div className="comment-text">{data.text}</div>
+				{videoID && splittedText ? (
+					<>
+						<div className="comment-text">{splittedText[0]}</div>
+						<div className="video-preview-container">
+							{/* iframe - возвращает html разметку */}
+							<iframe
+								src={`https://www.youtube.com/embed/${videoID}`}
+								allowFullScreen
+								className="video-preview-iframe"
+							></iframe>
+							<p className="video-preview-description">
+								{videoData?.videoDescription}
+							</p>
+						</div>
+						<div className="comment-text">{splittedText[1]}</div>
+					</>
+				) : (
+					<div className="comment-text">{data.text}</div>
+				)}
 			</div>
 		</div>
 	);

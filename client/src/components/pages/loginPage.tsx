@@ -63,14 +63,12 @@ const LoginPage = () => {
 		const isValid = validate();
 		if (!isValid) return;
 
-		console.log('submited');
+		setIsFetching(true);
+		// необходимо добавить await, иначе navigate() срабатывает до смены статуса в Redux
+		await dispatch(login(loginData));
+		setIsFetching(false);
 
-		// setIsFetching(true);
-		// // необходимо добавить await, иначе navigate() срабатывает до смены статуса в Redux
-		// await dispatch(login(loginData));
-		// setIsFetching(false);
-
-		// navigate(from === '/login' ? '/users' : from, { replace: true });
+		navigate(from === '/login' ? '/users' : from, { replace: true });
 	}
 
 	function validate() {

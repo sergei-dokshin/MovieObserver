@@ -37,9 +37,9 @@ const NavBar = () => {
 					Users
 				</NavLink>
 			</div>
-			<div>
+			<>
 				{authUser ? (
-					<div ref={menuRef}>
+					<div className="navbar-user-container" ref={menuRef}>
 						<NavbarProfile setIsMenuActive={setIsMenuActive} />
 						{isMenuActive && (
 							<NavProfileMenu setIsMenuActive={setIsMenuActive} />
@@ -52,7 +52,7 @@ const NavBar = () => {
 						</NavLink>
 					</div>
 				)}
-			</div>
+			</>
 		</div>
 	);
 };

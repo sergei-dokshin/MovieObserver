@@ -18,8 +18,12 @@ exports.fetchAuthUser = (userId) => {
   return User.findById(userId);
 };
 
-exports.editUser = (userId, updatedData) =>
-  User.findByIdAndUpdate(userId, updatedData, { new: true }).populate(
+exports.editUser = (userId, updatedData) => {
+  return User.findByIdAndUpdate(userId, updatedData, { new: true }).populate(
     'hobbies'
   );
+};
 
+exports.getUserByEmail = (email) => {
+  return User.findOne({ email });
+};

@@ -10,7 +10,7 @@ const UserRow: React.FC<UserRowProps> = ({ user, index }) => {
 	return (
 		<tr key={user._id}>
 			<th scope="row">{index + 1}</th>
-			<td>
+			<td className='table-row-name'>
 				<span
 					onClick={() => goToUserPage(user._id)}
 					style={{

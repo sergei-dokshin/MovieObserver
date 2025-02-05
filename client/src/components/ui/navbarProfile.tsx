@@ -14,16 +14,19 @@ const NavbarProfile = ({ setIsMenuActive }: NavbarProfileProps) => {
 		navigate(`/users/${authUser?._id}`);
 	}
 	return (
-		<div className="navbar-user-container">
+		<>
 			<h6 onClick={toUserPage}>{authUser?.name}</h6>
-			<img
-				src={
-					authUser?.avatar ? `http://localhost:8080/${authUser.avatar}` : ''
-				}
-				alt="Photo"
-				onClick={handleMenuClick}
-			/>
-		</div>
+			<div className="navbar-image-container">
+				<img
+					className="navbar-image-user"
+					src={
+						authUser?.avatar ? `http://localhost:8080/${authUser.avatar}` : ''
+					}
+					alt="Photo"
+					onClick={handleMenuClick}
+				/>
+			</div>
+		</>
 	);
 };
 

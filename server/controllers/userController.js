@@ -97,60 +97,29 @@ async function updateUser(req, res) {
   }
 }
 
-// Обновить данные пользователя
-// exports.updateUser = async (req, res) => {
-//     try {
-//         const userId = req.params.userId;
-//         const data = req.body;
+async function checkUserEmailExists(req, res) {
+  try {
+    const { email } = req.query;
+    const user = await userService.getUserByEmail(email);
 
-//         // Парсим хобби, если они есть
-//         let parsedHobbies = [];
-//         if (data.hobbies && Array.isArray(data.hobbies)) {
-//             parsedHobbies = data.hobbies.map((hobby) => JSON.parse(hobby));
-//         }
-//         data.hobbies = parsedHobbies;
+    if (user) {
+      res
+        .status(200)
+        .json({ status: 1, message: 'Пользователь с таким email существует' });
+    } else {
+      res.status(200).json({ status: 0, message: 'Пользователь не найден' });
+    }
+  } catch (error) {
+    res.status(500).json({
+      message: `Ошибка загрузки данных о пользователе(byEmail): ${error.message}`
+    });
+  }
+}
 
-//         // Получаем текущего пользователя
-//         const existingUser = await userService.getUserById(userId);
-//         if (!existingUser) {
-//             return res.status(404).json({ message: "User not found" });
-//         }
-//         if (req.file) {
-//             // Удаляем старый аватар, если он есть
-//             if (existingUser.avatar) {
-//                 fs.unlink(existingUser.avatar, (err) => {
-//                     if (err) {
-//                         console.error("Failed to delete old avatar:", err);
-//                     } else {
-//                         console.log("Old avatar deleted successfully");
-//                     }
-//                 });
-//             }
-
-//             // Добавляем путь к новому аватару в данные пользователя
-//             data.avatar = req.file.path;
-//         }
-
-//         // Обновляем данные пользователя
-//         const updatedUser = await userService.updateUser(userId, data);
-//         if (updatedUser) {
-//             res.json({
-//                 message: "User updated successfully",
-//                 user: updatedUser
-//             });
-//         } else {
-//             res.status(404).json({ message: "User not found" });
-//         }
-//     } catch (error) {
-//         if (error instanceof multer.MulterError) {
-//             // Обработка ошибок Multer
-//             return res.status(400).json({ message: error.message });
-//         }
-
-//         // Обработка других ошибок
-//         console.error("Error updating user:", error);
-//         res.status(500).json({ message: "Error updating user" });
-//     }
-// };
-
-module.exports = { getAllUsers, getUserById, getAuthUser, updateUser };
+module.exports = {
+  getAllUsers,
+  getUserById,
+  getAuthUser,
+  updateUser,
+  checkUserEmailExists
+};

@@ -4,7 +4,8 @@ const {
   getAllUsers,
   getUserById,
   getAuthUser,
-  updateUser
+  updateUser,
+  checkUserEmailExists
 } = require('../controllers/userController');
 const upload = require('../middlewares/images.middleware');
 const { authCheck } = require('../middlewares/auth.middleware');
@@ -14,6 +15,9 @@ router.get('/', authCheck, getAllUsers);
 
 // Получить авторизированного пользователя(наличие токенов в localstorage)
 router.get('/authUser', authCheck, getAuthUser);
+
+// проверить существует пользователь с данным email
+router.get('/email', authCheck, checkUserEmailExists);
 
 // Получить пользователя по ID
 router.get('/:userId', authCheck, getUserById);

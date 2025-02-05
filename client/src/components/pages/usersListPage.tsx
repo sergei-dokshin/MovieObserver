@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Pagination from '../common/pagination';
 import { paginate } from '../../utils/paginate';
 import FilterInput from '../ui/filterInput';
@@ -12,6 +12,7 @@ import {
 } from '../../store/users';
 import UsersTable from '../ui/usersTable';
 import UsersCardsList from '../ui/usersCardsList';
+import { User } from '../../types/user.types';
 
 const UsersList = () => {
 	const users = useAppSelector(getUsers());
@@ -23,7 +24,11 @@ const UsersList = () => {
 		iter: 'name',
 		order: 'asc'
 	});
+	// Состояние для значения в input, обновляется мгновенно:
 	const [filter, setFilter] = useState<string>('');
+	// Состояние для фильтрации, обновляется с задержкой:
+	const [debouncedFilter, setDebouncedFilter] = useState<string>(filter);
+
 	const tableHeadData = [
 		{ name: '#', sortType: '' },
 		{ name: 'Имя', sortType: 'name' },
@@ -31,18 +36,40 @@ const UsersList = () => {
 		{ name: 'Год рождения', sortType: 'birthDate' },
 		{ name: 'Избранное', sortType: '' }
 	];
-	// фильтрация и пагинация
-	const count = users.length;
+
+	// Обновляем debouncedFilter через 300 мс после последнего изменения filter
+	useEffect(() => {
+		const handler = setTimeout(() => {
+			setDebouncedFilter(filter);
+		}, 400);
+
+		// Если значение filter изменилось до истечения таймера — очищаем предыдущий timeout
+		return () => {
+			clearTimeout(handler);
+		};
+	}, [filter]);
+
+	// Фильтрация
+	const filteredUsers = useMemo(() => {
+		return debouncedFilter
+			? users.filter((user: User) =>
+					user.name.toLowerCase().includes(debouncedFilter.toLowerCase())
+				)
+			: users;
+	}, [users, debouncedFilter]);
+
+	// Пагинация
+	const count = filteredUsers.length;
 	const pageSize = 8;
 	const startIndex = (currentPage - 1) * pageSize;
-	const filteredUsers = users.filter((user) =>
-		user.name.toLowerCase().includes(filter.toLowerCase())
-	);
+
+	// Сортировка
 	const orderedUsers = _.orderBy(
 		filteredUsers,
 		[orderBy.iter],
 		[orderBy.order]
 	);
+	// Итоговый массив пользователей
 	const userCrop = paginate(orderedUsers, startIndex, pageSize);
 
 	function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
@@ -73,7 +100,7 @@ const UsersList = () => {
 
 	useEffect(() => {
 		dispatch(loadUsersList());
-	}, []);
+	}, [dispatch]);
 
 	return (
 		<div className="page-content-container">
@@ -99,35 +126,39 @@ const UsersList = () => {
 
 				{isLoading ? (
 					<h4>Загружаем данные о пользователях...</h4>
-				) : count > 0 ? (
+				) : (
 					<div className="users-container">
 						<FilterInput filter={filter} handleChange={handleChange} />
-						{viewSwitcher ? (
-							<UsersCardsList
-								userCrop={userCrop}
-								handleSort={handleSort}
-								orderBy={orderBy}
-								startIndex={startIndex}
-							/>
+						{count > 0 ? (
+							viewSwitcher ? (
+								<UsersCardsList
+									userCrop={userCrop}
+									handleSort={handleSort}
+									orderBy={orderBy}
+									startIndex={startIndex}
+								/>
+							) : (
+								<UsersTable
+									userCrop={userCrop}
+									tableHeadData={tableHeadData}
+									handleSort={handleSort}
+									orderBy={orderBy}
+									startIndex={startIndex}
+								/>
+							)
 						) : (
-							<UsersTable
-								userCrop={userCrop}
-								tableHeadData={tableHeadData}
-								handleSort={handleSort}
-								orderBy={orderBy}
-								startIndex={startIndex}
-							/>
+							<div className="users-cards-container">
+								<p>Пользователя с таким именем нет</p>
+							</div>
 						)}
 
 						<Pagination
-							numberOfItems={count}
+							numberOfItems={orderedUsers.length}
 							pageSize={pageSize}
 							currentPage={currentPage}
 							onPageChange={handlePageChange}
 						/>
 					</div>
-				) : (
-					<h4>Не удалось получить данные о пользователях...</h4>
 				)}
 			</div>
 		</div>
