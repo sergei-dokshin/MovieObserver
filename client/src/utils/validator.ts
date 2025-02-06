@@ -46,7 +46,7 @@ function validate(
 			break;
 		}
 		case 'isEmail': {
-			const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+			const emailRegex = /^[a-zA-Z0-9._]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 			statusValidate = typeof value === 'string' && !emailRegex.test(value);
 			break;
 		}
@@ -62,7 +62,18 @@ function validate(
 		}
 		case 'isCorrectBirthDate': {
 			const birthDateRegex = /^(19|20)\d{2}$/;
-			statusValidate = typeof value === 'string' && !birthDateRegex.test(value);
+			function checkAge(year: string) {
+				const currentYear = new Date().getFullYear();
+				const birthYear = parseInt(year, 10);
+				const age = currentYear - birthYear;
+				// Проверяем, что год валиден и пользователю минимум 14 лет
+				return birthDateRegex.test(year) && age >= 14;
+			}
+
+			statusValidate =
+				typeof value === 'string' &&
+				checkAge(value) &&
+				!birthDateRegex.test(value);
 			break;
 		}
 		default:

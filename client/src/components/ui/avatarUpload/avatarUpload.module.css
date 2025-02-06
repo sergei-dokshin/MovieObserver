@@ -1,0 +1,76 @@
+.avatarUploadContainer {
+	position: relative;
+	width: 200px;
+	height: 250px;
+	background-color: #666;
+	border: 1px solid black;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 30px;
+}
+
+.avatar-upload-input {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0; /* Прозрачный для использования кастомного интерфейса */
+	cursor: pointer;
+}
+
+.avatar-preview {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.avatar-placeholder {
+	width: 100%;
+	height: 100%;
+	background-color: #f0f0f0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #888;
+	font-size: 16px;
+}
+
+.tooltip {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 20%;
+	background-color: rgba(0, 0, 0, 0.6); /* Полупрозрачный фон */
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 14px;
+	opacity: 0.3;
+	transition: opacity 0.3s ease-in-out;
+	cursor: pointer;
+}
+
+.avatar-upload-container:hover .upload-tooltip {
+	opacity: 1; /* Показываем подсказку при наведении */
+}
+
+.cropContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.cropCompleteSymbol {
+	cursor: pointer;
+	position: absolute;
+	top: 5px;
+	z-index: 5;
+}

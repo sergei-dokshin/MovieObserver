@@ -17,7 +17,7 @@ router.get('/', authCheck, getAllUsers);
 router.get('/authUser', authCheck, getAuthUser);
 
 // проверить существует пользователь с данным email
-router.get('/email', authCheck, checkUserEmailExists);
+router.get('/email', checkUserEmailExists);
 
 // Получить пользователя по ID
 router.get('/:userId', authCheck, getUserById);

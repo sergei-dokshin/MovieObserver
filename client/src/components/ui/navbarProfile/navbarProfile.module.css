@@ -1,0 +1,18 @@
+.imageContainer {
+	position: relative;
+}
+
+.userImage {
+	border-radius: 50%;
+	height: 50px;
+	width: 50px;
+	margin-left: 15px;
+	object-fit: cover;
+	transform: scale(1.2);
+	cursor: pointer;
+}
+
+.userImage:hover {
+	filter: brightness(1.2);
+	box-shadow: 0 0 5px #121212d9;
+}

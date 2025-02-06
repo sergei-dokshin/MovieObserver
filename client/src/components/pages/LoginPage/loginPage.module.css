@@ -1,0 +1,90 @@
+.loginFormContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border-radius: 5px;
+	box-shadow: 5px 5px 9px #111111;
+	padding: 30px 46px;
+	margin-top: 30px;
+	background-color: #242424;
+}
+
+.loginFormInput {
+	width: 290px;
+	border: 1px solid lightskyblue;
+	border-radius: 7px;
+	padding: 5px 20px;
+	margin-bottom: 20px;
+}
+
+.inputPassword {
+	padding-right: 2rem; /* Оставляем место для иконки */
+}
+
+.formButton {
+	margin: 0 0 15px 0;
+	font-size: 20px;
+	font-weight: 700;
+	font-family: inherit;
+	cursor: pointer;
+	transition: border-color 0.25s;
+	color: whitesmoke;
+	background-color: #124783;
+	border: none;
+	border-radius: 5px;
+	padding: 5px 30px;
+}
+
+.formButton:hover {
+	background-color: #1959a3;
+}
+
+.formButton i {
+	margin-right: 5px;
+}
+
+.disabledButton {
+	color: gray;
+	background-color: #404040;
+	border-color: gray;
+}
+
+.disabledButton:hover {
+	cursor: progress;
+}
+
+.passwordEye:hover {
+	color: #555;
+}
+
+.registerMessage {
+	font-size: 0.85rem;
+	margin-bottom: 5px;
+}
+
+.errorMessage {
+	color: var(--text-error);
+	font-size: 0.9rem;
+	font-style: italic;
+	position: relative;
+}
+
+.errorInputBorder {
+	border: 1px solid var(--text-error);
+}
+
+
+.errorContainer {
+    position: relative;
+}
+
+.link {
+	cursor: pointer;
+	color: #64b4ff;
+	text-decoration: underline;
+	font-size: 0.85rem;
+}
+
+.link:hover {
+	color: #3d9bf4;
+}

@@ -1,0 +1,18 @@
+.formButton {
+	width: 240px;
+	font-size: 20px;
+	font-weight: 700;
+	font-family: inherit;
+	cursor: pointer;
+	transition: border-color 0.25s;
+	color: whitesmoke;
+	background-color: #124783;
+	border: none;
+	border-radius: 5px;
+	padding: 5px 0;
+	margin: 0 0 15px 0;
+}
+
+.formButton:hover {
+	background-color: #1959a3;
+}

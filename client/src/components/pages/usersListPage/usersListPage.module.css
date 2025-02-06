@@ -1,0 +1,25 @@
+.usersMainContainer {
+	display: flex;
+	justify-content: space-between;
+}
+
+.sidebar {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-right: 30px;
+}
+
+.viewSwitcher {
+	display: flex;
+	flex-wrap: nowrap;
+	border-radius: 5px;
+	background-color: #212529;
+}
+
+.viewSwitcher i {
+	padding: 10px 20px;
+	cursor: pointer;
+	size: 1.5;
+	transition: background-color 0.3s ease;
+}

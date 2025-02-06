@@ -1,0 +1,46 @@
+.inputWrap {
+	position: relative;
+	display: flex;
+	align-items: center;
+}
+
+.label {
+	align-self: flex-start;
+}
+
+.input {
+	width: 450px;
+	border: 1px solid black;
+	border-radius: 5px;
+	padding: 5px 10px;
+}
+
+.errorContainer {
+	position: relative;
+	display: flex;
+	flex-wrap: nowrap;
+}
+
+.errorMessage {
+	font-size: 0.8rem;
+	font-style: italic;
+	color: var(--text-error);
+	visibility: hidden;
+}
+
+.errorBorder {
+	border: 1px solid var(--text-error);
+}
+
+.visible {
+	visibility: visible;
+}
+
+.passwordEye {
+	position: absolute;
+	right: 0.5rem;
+	cursor: pointer;
+	color: #888;
+	font-size: 1.25rem; /* Задаём размер иконки */
+	user-select: none; /* Отключаем выделение */
+}
