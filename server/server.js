@@ -15,10 +15,12 @@ app.use(
   cors({
     origin: 'http://localhost:3000', // Разрешаем только этот Origin
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], // Разрешённые методы
-    allowedHeaders: ['Content-Type', 'Authorization'] // Разрешённые заголовки
+    allowedHeaders: ['Content-Type', 'Authorization'], // Разрешённые заголовки
+
   })
 );
 app.use(express.json());
+
 app.use(express.urlencoded({ extended: false }));
 
 // Делаем папку "uploads" доступной для запросов
@@ -26,6 +28,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Регистрируем маршруты
 const allRoutes = require('./routes/index');
+const cookieParser = require('cookie-parser');
 
 app.use('/api', allRoutes);
 
