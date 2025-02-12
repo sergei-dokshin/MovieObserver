@@ -130,7 +130,7 @@ const UserForm: React.FC<UserFormProps> = ({
 				<FormInput
 					label={true}
 					labelText="Страница Википедии: "
-					inputType="text"
+					inputType="wikiPage"
 					placeholder="wikiPage"
 					error={inputErrors.wikiPage}
 					errorType="isEmail"

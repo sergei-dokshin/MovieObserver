@@ -60,7 +60,7 @@ async function updateUser(req, res) {
 
     // проверяем, пытается ли пользователь поменять данные в собственном аккаунте или нет
     if (userId !== authUserId) {
-      res.status(401).json({
+      return res.status(401).json({
         message: 'UNAUTHORIZED'
       });
     }
@@ -84,7 +84,7 @@ async function updateUser(req, res) {
     // Обновляем данные пользователя
     const updatedUser = await userService.editUser(userId, data);
 
-    res.send(updatedUser);
+    return res.send(updatedUser);
   } catch (error) {
     // Обработка ошибок Multer
     if (error instanceof multer.MulterError) {
