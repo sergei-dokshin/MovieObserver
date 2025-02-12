@@ -23,16 +23,15 @@ const authService = {
 	login: async ({ email, password }: LogInProps) => {
 		const { data } = await httpAuth.post('/signInWithPassword', {
 			email,
-			password,
-			returnSecureToken: true
-		});
+			password
+		}, { withCredentials: true });
 		return data;
 	},
 	refresh: async () => {
 		const { data } = await httpAuth.post('/token', {
 			grant_type: 'refresh_token',
 			refresh_token: localStorageService.getRefreshToken()
-		});
+		}, { withCredentials: true });
 		return data;
 	}
 };

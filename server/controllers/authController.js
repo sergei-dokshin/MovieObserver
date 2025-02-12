@@ -54,9 +54,18 @@ exports.signUp = async (req, res) => {
     const tokens = tokenHandler.generate({ _id: createdUser._id });
     await tokenHandler.saveRefreshToken(createdUser._id, tokens.refreshToken);
 
-    // отправляем ответ содержащий токены и пользователя
+    const { accessToken, ...rest } = tokens;
+    
+    // Отправляем access_token в Cookies с флагом httpOnly
+    res.cookie('access_token', accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',  // https только в продакшн
+      sameSite: 'Strict',
+    });
+  
+    // отправляем ответ содержащий refresh токен и пользователя
     res.status(201).send({
-      tokens: { ...tokens, userId: createdUser._id },
+      tokens: { ...rest, userId: createdUser._id },
       user: createdUser
     });
   } catch (error) {
@@ -112,9 +121,18 @@ exports.logIn = async (req, res) => {
     const tokens = tokenHandler.generate({ _id: user._id });
     await tokenHandler.saveRefreshToken(user._id, tokens.refreshToken);
 
-    // отправляем ответ содержащий токены и пользователя
+    const { accessToken, ...rest } = tokens;
+
+    // Отправляем access_token в Cookies с флагом httpOnly
+    res.cookie('accessToken', accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',  // https только в продакшн
+      sameSite: 'Strict',
+    });
+  
+    // отправляем ответ содержащий refresh токен и пользователя
     res.status(201).send({
-      tokens: { ...tokens, userId: user._id },
+      tokens: { ...rest, userId: user._id },
       user
     });
   } catch (error) {
@@ -142,8 +160,18 @@ exports.refreshToken = async (req, res) => {
     // генерируем токены и сохраняем их в базе данных
     const tokens = tokenHandler.generate({ _id: data._id });
     await tokenHandler.saveRefreshToken(data._id, tokens.refreshToken);
-    // отправляем ответ содержащий токены
-    return res.status(200).send({ ...tokens, userId: data._id });
+
+    const { accessToken, ...rest } = tokens;
+
+    // Отправляем access_token в Cookies с флагом httpOnly
+    res.cookie('access_token', accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',  // https только в продакшн
+      sameSite: 'Strict',
+    });
+  
+    // отправляем ответ содержащий refresh токен
+    return res.status(200).send({ ...rest, userId: data._id });
   } catch (error) {
     res.status(500).json({
       message: `Ошибка обновления токенов: ${error.message}`

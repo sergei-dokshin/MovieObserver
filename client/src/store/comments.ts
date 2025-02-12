@@ -6,7 +6,6 @@ import { CommentData } from '../types/comment.types';
 import { toastError } from '../utils/toastify';
 import { toast } from 'react-toastify';
 
-
 const initialState: CommentsState = {
 	entities: [],
 	isLoading: true,
@@ -57,7 +56,9 @@ export function loadCommentsForUser(userId: string) {
 		dispatch(commentsRequested());
 		try {
 			// добавляем params для запроса комментариев для определенного пользователя
-			const { data } = await http.get(`comments/${userId}`);
+			const { data } = await http.get(`comments/${userId}`, {
+				withCredentials: true
+			});
 			dispatch(commentsRecieved(data));
 		} catch (error) {
 			if (isAxiosError(error)) {
@@ -77,7 +78,8 @@ export function createNewComment(newComment: NewCommentData) {
 			const { status, data } = await http({
 				method: 'post',
 				url: `comments/create`,
-				data: newComment
+				data: newComment,
+				withCredentials: true
 			});
 			if (status !== 201) {
 				throw new Error(`Unexpected response status: ${status}`);
@@ -107,7 +109,9 @@ export function deleteComment(
 	return async (dispatch: AppDispatch) => {
 		dispatch(commentDeleted(commentId));
 		try {
-			const response = await http.delete(`/comments/${commentId}`);
+			const response = await http.delete(`/comments/${commentId}`, {
+				withCredentials: true
+			});
 			if (response.status !== 200) {
 				throw new Error(`Unexpected response status: ${response.status}`);
 			}

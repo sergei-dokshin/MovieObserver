@@ -2,17 +2,19 @@ import http from '../services/httpService';
 import { User } from '../types/user.types';
 
 const getUser = async (userId: string) => {
-	const { data } = await http.get(`/users/${userId}`);
+	const { data } = await http.get(`/users/${userId}`, {
+		withCredentials: true
+	});
 	return data;
 };
 
 const getAuthUser = async () => {
-	const { data } = await http.get('/users/authUser');
+	const { data } = await http.get('/users/authUser', { withCredentials: true });
 	return data;
 };
 
 const getAllUsers = async () => {
-	const { data } = await http.get(`/users`);
+	const { data } = await http.get(`/users`, { withCredentials: true });
 	return data;
 };
 
@@ -23,7 +25,8 @@ const updateUser = async (payload: User) => {
 		headers: {
 			'Content-Type': 'multipart/form-data'
 		},
-		data: payload
+		data: payload,
+		withCredentials: true
 	});
 	return data;
 };

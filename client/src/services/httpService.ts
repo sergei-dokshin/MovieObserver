@@ -4,7 +4,8 @@ import { localStorageService } from './localStorageService';
 import authService from './authService';
 
 const http = axios.create({
-	baseURL: configFile.apiEndpoint
+	baseURL: configFile.apiEndpoint,
+	withCredentials: true // чтобы cookies отправлялись с каждым запросом
 });
 
 // меняем request перед тем, как он уйдёт на сервер
@@ -21,12 +22,7 @@ http.interceptors.request.use(
 			const data = await authService.refresh();
 			// обновленные данные устанавливаем в localstorage
 			localStorageService.setTokens(data);
-		}
-		const accessToken = localStorageService.getAccessToken();
-
-		// Добавляем токен в заголовки
-		if (accessToken) {
-			config.headers['Authorization'] = `Bearer ${accessToken}`;
+			// обновленный accessToken должен придти в Cookies в ответе от сервера
 		}
 
 		return config;
@@ -38,17 +34,34 @@ http.interceptors.request.use(
 
 http.interceptors.response.use(
 	(res) => res,
-	(error) => {
-		const isExpectedError =
+	async (error) => {
+		// настраиваем обновление токенов и повторный запрос при ошибке авторизации
+		const originalRequest = error.config;
+
+		if (
 			error.response &&
-			error.response.status >= 400 &&
-			error.response.status <= 499;
-		if (isExpectedError && error.message) {
-			console.log('Ecpected error: ', error.message);
-		} else if (!isExpectedError && error.message) {
-			console.log('Unecpected error: ', error.message);
-		} else {
-			console.log('Something went wrong: ', error);
+			error.response.status === 401 &&
+			!originalRequest._retry
+		) {
+			originalRequest._retry = true;
+			try {
+				// Получаем refresh_token
+				const refreshToken = localStorageService.getRefreshToken();
+				if (!refreshToken) {
+					throw new Error('No refresh token available');
+				}
+
+				const data = await authService.refresh();
+				// обновленные данные устанавливаем в localstorage
+				localStorageService.setTokens(data);
+				// обновленный accessToken должен придти в Cookies в ответе от сервера
+				// Повторяем исходный запрос
+				return http(originalRequest);
+			} catch (refreshError) {
+				console.error('Refresh token error:', refreshError);
+				window.location.href = '/login'; // перенаправляем на страницу логина
+				return Promise.reject(refreshError);
+			}
 		}
 		return Promise.reject(error); // Позволяет другим обработчикам работать с ошибкой
 	}

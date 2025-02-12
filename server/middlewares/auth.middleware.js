@@ -6,8 +6,10 @@ exports.authCheck = (req, res, next) => {
   }
 
   try {
-    // получаем токен из Header authorization: Bearer TdXbIHBbUGjniUFYTFYVGklvbuilg;oihujhuj...
-    const token = req.headers.authorization.split(' ')[1];
+    // получаем access_token из Cookies
+    console.log(req.cookies);
+    
+    const token = req.cookies.accessToken;
     if (!token) {
       return res
         .status(401)
